@@ -9,8 +9,8 @@ router.get('/', function(req, res) {
 });
 
 /* GET home page. */
-router.get('/autor', function(req, res) {
-  res.render('autor',{});
+router.get('/author', function(req, res) {
+  res.render('author',{});
 });
 
 /* GET Quizes Question. */
