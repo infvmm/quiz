@@ -12,8 +12,6 @@ var port 	 = 	(url[5]||null);
 var host 	 = 	(url[4]||null);
 var storage  = 	process.env.DATABASE_STORAGE;
 
-console.log('Dialect: ' + dialect);
-
 // Cargar modelo ORM
 var Sequelize = require('sequelize');
 
@@ -22,7 +20,7 @@ var Sequelize = require('sequelize');
 // 			});
 // Usar BBDD SQLite o Postgres
 var sequelize = new Sequelize(DB_name, user, pwd, {
-				//dialect: protocol, 
+				dialect: protocol, 
 				protocol: protocol,
 				port: port,
 				host: host,
