@@ -27,20 +27,20 @@ var models = require('../models/models.js');
 // GET /quizes
 exports.index = function(req, res){
   var param = req.query.search;
-  console.log('index' + param);
+  console.log('index param: ' + param);
     if(param) {
         var search = param.trim();
         search = '%' + search + '%';
         search = search.replace(/\s+/g, '%');
-        console.log('index search' + search);
+        console.log('index search: ' + search);
         models.Quiz.findAll({
                 where: ["pregunta like ?", search], 
                 order: '`pregunta` ASC'
               }).then(function(quizes){
-                console.log('index quizes' + quizes);
+                console.log('index quizes: ' + quizes);
         res.render('quizes/index', {quizes:quizes});
         }).catch(function(error){
-          console.log('index error' + error);
+          console.log('index error: ' + error);
           next(error);
         });
     } else {
