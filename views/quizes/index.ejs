@@ -1,5 +1,16 @@
+<form method='get' action='/quizes'>
+	Texto a buscar:<br>
+	<input type"text" name='search' >
+	<p>
+	<input type="submit" value='Enviar'>
+</form>
+
 <table>
-<% var i; for(i=0;i < quizes.length;i++) { %>
+<% if(quizes != undefined && quizes.length > 0) { %>
+	<% var i; for(i=0;i < quizes.length;i++) { %>
 	<tr><td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td></tr>
+<% } %>
+<% } else if(quizes != undefined && quizes.length === 0) { %>
+	<h5> Elementos no encontrados para la busqueda realizada </h5>
 <% } %>
 </table>

@@ -26,9 +26,17 @@ var models = require('../models/models.js');
 
 // GET /quizes
 exports.index = function(req, res){
-    models.Quiz.findAll().then(function(quizes){
-      res.render('quizes/index', {quizes:quizes});
-    }).catch(function(error){next(error);});
+  var param = req.query.search;
+    if(param) {
+        var search = param.trim();
+        search = '%' + search + '%';
+        search = search.replace(/\s+/g, '%');
+        models.Quiz.findAll({where: ["pregunta like ?", search]}).then(function(quizes){
+        res.render('quizes/index', {quizes:quizes});
+        }).catch(function(error){next(error);});
+    } else {
+        res.render('quizes/index', {quizes:undefined});
+    }
 };
 
 // Autoload - factoriza el codigo si ruta incluye :quizId
@@ -37,6 +45,7 @@ exports.load = function(req, res, next, quizId){
       function(quiz){
         if(quiz){
           req.quiz = quiz;
+          next();
         } else {
            next(new Error('No existe quizId: ' + quizId));
         }
