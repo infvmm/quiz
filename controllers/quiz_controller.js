@@ -44,10 +44,14 @@ exports.index = function(req, res){
 
 // Autoload - factoriza el codigo si ruta incluye :quizId
 exports.load = function(req, res, next, quizId){
+  console.load('quizId' + quizId);
   models.Quiz.find(quizId).then(
       function(quiz){
+        console.load('quiz' + quiz);
         if(quiz){
+          console.load('quiz' + quiz.id);
           req.quiz = quiz;
+          console.load('quiz next' );
           next();
         } else {
            next(new Error('No existe quizId: ' + quizId));
@@ -58,6 +62,8 @@ exports.load = function(req, res, next, quizId){
 
 // GET /quizes/:id
 exports.show = function(req, res) {
+  console.load('show' + req.quiz.id);
+  console.load('show' + req.quiz.id);
     res.render('quizes/show', {quiz: req.quiz});
 };
 
