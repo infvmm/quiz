@@ -35,8 +35,8 @@ exports.index = function(req, res){
         console.log('index search: ' + search);
         models.Quiz.findAll(
                 {
-                   // where: ["pregunta like ?", search], 
-                   order: '`pregunta` ASC'
+                   where: ["pregunta like ?", search], 
+                   order: 'pregunta ASC'
                  }
               ).then(function(quizes){
                 console.log('index quizes: ' + quizes);
