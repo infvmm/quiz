@@ -8,16 +8,13 @@ router.get('/', function(req, res) {
   res.render('index', { title: 'Quiz' });
 });
 
-/* GET home page. */
+/* GET author page. */
 router.get('/author', function(req, res) {
   res.render('author',{});
 });
 
-/* GET Quizes Question. */
-//router.get('/quizes/question', quizController.question);
-
-/* GET Quizes Answer. */
-//router.get('/quizes/answer', quizController.answer);
+// Autoload de comandos con :quizId
+router.param('quizId', quizController.load); // autoload :quizId
 
 // Definicion de rutas de quizes
 router.get('/quizes', quizController.index);
