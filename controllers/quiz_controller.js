@@ -31,7 +31,10 @@ exports.index = function(req, res){
         var search = param.trim();
         search = '%' + search + '%';
         search = search.replace(/\s+/g, '%');
-        models.Quiz.findAll({where: ["pregunta like ?", search]}).then(function(quizes){
+        models.Quiz.findAll({
+                where: ["pregunta like ?", search], 
+                order: '`pregunta` ASC'
+              }).then(function(quizes){
         res.render('quizes/index', {quizes:quizes});
         }).catch(function(error){next(error);});
     } else {
