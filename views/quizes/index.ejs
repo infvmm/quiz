@@ -8,7 +8,10 @@
 <table>
 <% if(quizes != undefined && quizes.length > 0) { %>
 	<% var i; for(i=0;i < quizes.length;i++) { %>
-	<tr><td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td></tr>
+	<tr>
+		<td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
+		<td><a href="quizes/<%= quizes[i].id %>/edit"><button>editar</button></a></td>
+	</tr>
 <% } %>
 <% } else if(quizes != undefined && quizes.length === 0) { %>
 	<h5> Elementos no encontrados para la busqueda realizada </h5>
