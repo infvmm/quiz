@@ -39,16 +39,34 @@ sequelize.sync().then(function(){
 	Quiz.count().then(function(count){
 		if(count == 0){ //La tabla se inicializa solo si esta vacia
 			Quiz.create({
-				pregunta: 'Nombre del pais Italia en Inglés',
-				respuesta: 'Italy'
+				pregunta: '¿Nombre del pais Italia en Inglés?',
+				respuesta: 'Italy',
+				tematica: 'otro'
 			});
 			Quiz.create({
-				pregunta: 'Capital de Italia',
-				respuesta: 'Roma'
+				pregunta: '¿Capital de Italia?',
+				respuesta: 'Roma',
+				tematica: 'ocio'				
 			});
 			Quiz.create({
-				pregunta: 'Capital de Portugal',
-				respuesta: 'Lisboa'
+				pregunta: '¿Valor del numero pi?',
+				respuesta: '3.1416',
+				tematica: 'ciencia'
+			});
+			Quiz.create({
+				pregunta: '¿Quien descubrio America?',
+				respuesta: 'Cristobal Colon',
+				tematica: 'humanidades'
+			});
+			Quiz.create({
+				pregunta: '¿Como se llama el último juguete de Apple?',
+				respuesta: 'iWatch',
+				tematica: 'tecnologia'
+			});
+			Quiz.create({
+				pregunta: '¿Capital de Portugal?',
+				respuesta: 'Lisboa',
+				tematica: 'ocio'				
 			}).then(function(){console.log('Base de datos inicializada')});
 		}
 	});

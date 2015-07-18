@@ -35,7 +35,7 @@ exports.index = function(req, res){
         models.Quiz.findAll(
                 {
                    where: ["LOWER(pregunta) like ?", search], 
-                   order: 'pregunta ASC'
+                   order: 'tematica ASC'
                  }
               ).then(function(quizes){
         res.render('quizes/index', {quizes:quizes, errors: []});
@@ -43,7 +43,7 @@ exports.index = function(req, res){
           next(error);
         });
     } else {
-        models.Quiz.findAll().then(function(quizes){
+        models.Quiz.findAll({order: 'tematica ASC'}).then(function(quizes){
           res.render('quizes/index', {quizes:quizes, errors: []});
         }).catch(function(error){
           next(error);
@@ -108,7 +108,7 @@ exports.answer = function(req, res) {
 
 exports.new = function(req, res){
   var quiz = models.Quiz.build( // crea un objeto quiz
-      {pregunta: "Pregunta", respuesta: "Respuesta"}
+      {pregunta: "Pregunta", respuesta: "Respuesta", tematica: "Tematica"}
     );
 
   res.render('quizes/new', {quiz: quiz, errors: []});
@@ -123,7 +123,7 @@ exports.create = function(req, res){
       res.render('quizes/new', {quiz:quiz ,errors: err.errors});
     } else{
       // guarda en DB los campos pregunta y respuesta de quiz
-      quiz.save({fields:["pregunta","respuesta"]}).then(function(){
+      quiz.save({fields:["pregunta","respuesta","tematica"]}).then(function(){
           // Redireccion HTTP (URL relativo) lista de preguntas
           res.redirect('/quizes');         
       });
@@ -142,13 +142,14 @@ exports.edit = function(req, res){
 exports.update = function(req, res){
   req.quiz.pregunta = req.body.quiz.pregunta;
   req.quiz.respuesta = req.body.quiz.respuesta;
+  req.quiz.tematica = req.body.quiz.tematica;
 
   req.quiz.validate().then(function(err){
     if(err){
       res.render('quizes/edit', {quiz:req.quiz ,errors: err.errors});
     } else{
       // guarda en DB los campos pregunta y respuesta de quiz
-      req.quiz.save({fields:["pregunta","respuesta"]}).then(function(){
+      req.quiz.save({fields:["pregunta","respuesta","tematica"]}).then(function(){
           // Redireccion HTTP (URL relativo) lista de preguntas
           res.redirect('/quizes');         
       });
