@@ -155,3 +155,13 @@ exports.update = function(req, res){
     }
   });
 }
+
+// GET /quizes/:id/destroy
+exports.destroy = function(req, res){
+  req.quiz.destroy().then(function(){
+     // Redireccion HTTP (URL relativo) lista de preguntas
+          res.redirect('/quizes');         
+  }).catch(function(error){
+    next(error);
+  });
+}
