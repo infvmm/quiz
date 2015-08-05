@@ -11,16 +11,20 @@
 	<tr>
 		<td><label><%= quizes[i].tematica %>: </label></td>
 		<td><a href="quizes/<%= quizes[i].id %>"><%= quizes[i].pregunta %></a></td>
+		<% if (session.user) { %>
 		<td><a href="quizes/<%= quizes[i].id %>/edit"><button>editar</button></a></td>
 		<td>
 			<form method="post" action="quizes/<%= quizes[i].id %>?_method=delete">
 				<button type"submit" onClick="return confirm('Borrar: <%= quizes[i].pregunta %>');">borrar</button>
 			</form>
 		</td>
+		<% } %>
 	</tr>
 <% } %>
 <% } else if(quizes != undefined && quizes.length === 0) { %>
 	<h5> Elementos no encontrados para la busqueda realizada </h5>
 <% } %>
 </table><p>
-<a href="/quizes/new"><button type="button">Crear pregunta</button></a>
+<% if (session.user) { %>
+	<a href="/quizes/new"><button type="button">Crear pregunta</button></a>
+<% } %>
