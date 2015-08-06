@@ -28,6 +28,31 @@ app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(partials());
 
+// Middleware para expiracion de auto-logout
+app.use(function(req, res, next){
+    // Comprobamos que esta autenticado
+    if(req.session.user!=undefined){
+        // Obtenemos el tiempo anterior
+        var lastRequestTime = req.session.lastRequestTime;
+        // Obtenemos el tiempo actual
+        var requestTime=new Date().getTime();
+        // Establecemos el tiempo actual garantizando su actualizacion
+        req.session.lastRequestTime = requestTime;
+
+        // En caso de estar autenticado comprobamos si se acaba de autenticar
+        if(lastRequestTime != undefined){
+            // Ya estaba autenticado y tenia un tiempo establecido
+            if((requestTime-lastRequestTime) >= (2*60*1000)){
+                delete req.session.user;
+                delete req.session.lastRequestTime;
+                res.redirect(req.session.redir.toString());
+            } 
+        } 
+    }
+    // Pasamos al siguiente middleware.
+   next();
+});
+
 // Helpers dinamicos:
 app.use(function(req, res, next){
 
